@@ -68,7 +68,7 @@ app.use((req, res, next) => {
     if (path.startsWith("/api")) {
       log(`${req.method} ${path} ${res.statusCode} in ${duration}ms`);
     }
-    return originalJson.apply(res, [body, ...args]);
+    return originalJson.apply(res, [body]);
   };
 
   next();
@@ -78,7 +78,7 @@ app.use((req, res, next) => {
 /* ================= MAIN BOOTSTRAP ================= */
 (async () => {
   /* AUTH */
-  setupAuth(app);
+  await setupAuth(app);
 
   /* ROUTES — your routes expect server */
   await registerRoutes(httpServer);
